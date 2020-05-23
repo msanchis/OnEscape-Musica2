@@ -2,10 +2,21 @@
 import paho.mqtt.client as mqtt #important el client
 import pygame
 import time
+import subprocess
 import threading
 
 pygame.mixer.init()	
 pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=4096)
+
+#Funció per a executar el servidor de mosquitto
+def mosquitto():
+    #subprocess.call(mosquitto_path,'-v',shell=True)
+    subprocess.call(mosquitto_path,shell=True)
+
+#Creació de un thread on s'executa el servidor mosquitto
+
+hilo = threading.Thread(target=mosquitto)    
+hilo.start()
 
 DIFICULTAD=0 #variable dificultat, per defecte facil 0, 1 dificil
 
@@ -63,12 +74,9 @@ def on_message(client, userdata, message):
         hilo = threading.Thread(target=finA1)
         hilo.start()
 
-
-
     elif topic == "sala2/tecla1":
         time.sleep(1)
-        pygame.mixer.Sound.play(soundB1)
-    
+        pygame.mixer.Sound.play(soundB1)    
 
 def on_connect(client,userdata,flags,rc):
   
@@ -80,10 +88,10 @@ def on_connect(client,userdata,flags,rc):
     for i in range(0,20):
         client.subscribe("sala2/tecla"+str(i),1)
 
-
     print("Suscrito a los temas tecla de 0 a 20")
 
-broker_address="192.168.68.1" #ip del servidor
+broker_address="127.0.0.1" #ip del servidor
+#broker_address="192.168.68.1" #ip del servidor
 #broker_address="192.168.1.3"
 
 print("Creando una estancia")
