@@ -112,6 +112,14 @@ def tecla1_inici():
         pygame.mixer.Sound.play(tecla1_2)
     pygame.mixer.Sound.play(tecla1_3) 
 
+def tecla2_inici():
+    global tecla2
+    tecla2=True
+    pygame.mixer.Sound.play(tecla2_1)
+    while(tecla2):
+        pygame.mixer.Sound.play(tecla2_2)
+    pygame.mixer.Sound.play(tecla2_3) 
+
 def comensa():
     #time.sleep(63)
     pygame.mixer.music.load('/home/pi/audio2/A11.ogg') #obrir eixe archiu
@@ -133,12 +141,25 @@ def on_message(client, userdata, message):
         if mes == "1":
             DIFICULTAD=1
     elif topic == "sala2/tecla1":
-        if mes == "on":
+        print("ENTRA en tecla1")
+        if mes == "1":
+            print("ENTRA 1 en mes=1")
             hilo = threading.Thread(target=tecla1_inici)
             hilo.start()
-        elif mes == "off":
+        elif mes == "0":
+            print("ENTRA 1 en mes=0")
             global tecla1
             tecla1=False
+    #elif topic == "sala2/tecla2":
+    #    print("ENTRA en tecla2")
+    #    if mes == "1":
+    #        print("ENTRA 2 en mes=1")
+    #        hilo = threading.Thread(target=tecla2_inici)
+    #        hilo.start()
+    #    elif mes == "0":
+    #        print("ENTRA 2 en mes=0")
+    #        global tecla2
+    #        tecla2=False
     
 def on_connect(client,userdata,flags,rc):
   
