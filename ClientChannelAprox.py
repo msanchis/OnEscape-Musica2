@@ -6,7 +6,8 @@ import subprocess
 import threading
 
 pygame.mixer.init()	
-pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=4096)
+pygame.mixer.pre_init(frequency=44100, size=-16, channels=20, buffer=4096)
+pygame.mixer.set_num_channels(20)
 
 DIFICULTAD=0 #variable dificultat, per defecte facil 0, 1 dificil
 
@@ -76,16 +77,16 @@ tecla20_3 = pygame.mixer.Sound('/home/pi/audio2/C-1.wav')
 #play(Sound, loops=0, maxtime=0, fade_ms=0) -> None
 
 def tecla1_inici():    
-    pygame.mixer.Channel(0).play(tecla1_1,-1,20)
+    pygame.mixer.Channel(0).play(tecla1_1,-1,20000)
 
 def tecla2_inici():
-    pygame.mixer.Channel(1).play(tecla2_1,-1,20)
+    pygame.mixer.Channel(1).play(tecla2_1,-1,20000)
 
 def tecla3_inici():    
-    pygame.mixer.Channel(2).play(tecla3_1,-1,20)
+    pygame.mixer.Channel(2).play(tecla3_1,-1,20000)
 
 def tecla4_inici():
-    pygame.mixer.Channel(3).play(tecla4_1,-1,20)
+    pygame.mixer.Channel(3).play(tecla4_1,-1,20000)
 
 def on_message(client, userdata, message):    
     topic = str(message.topic)
@@ -99,50 +100,105 @@ def on_message(client, userdata, message):
         print("ENTRA en tecla1")
         if mes == "1":
             print("ENTRA 1 en mes=1")
-            hilo = threading.Thread(target=tecla1_inici)
-            hilo.start()
+            if not pygame.mixer.Channel(0).get_busy():
+                pygame.mixer.Channel(0).play(tecla1_1,-1,20000)
+            #hilo = threading.Thread(target=tecla1_inici)
+            #hilo.start()
         elif mes == "0":
             print("ENTRA 1 en mes=0")
             #fadeout() 
             # stop playback after fading channel out 
             # fadeout(time) -> None
-            pygame.mixer.Channel(0).fadeout(300)
+            pygame.mixer.Channel(0).fadeout(200)
     elif topic == "sala2/tecla2":
         print("ENTRA en tecla2")
         if mes == "1":
             print("ENTRA 2 en mes=1")
-            hilo = threading.Thread(target=tecla2_inici)
-            hilo.start()
+            if not pygame.mixer.Channel(1).get_busy():
+                pygame.mixer.Channel(1).play(tecla2_1,-1,20000)
+            #hilo = threading.Thread(target=tecla2_inici)
+            #hilo.start()
         elif mes == "0":
             print("ENTRA 2 en mes=0")
-            pygame.mixer.Channel(1).fadeout(300)
+            pygame.mixer.Channel(1).fadeout(200)
     elif topic == "sala2/tecla3":
         print("ENTRA en tecla3")
         if mes == "1":
             print("ENTRA 3 en mes=1")
-            hilo = threading.Thread(target=tecla3_inici)
-            hilo.start()
+            if not pygame.mixer.Channel(2).get_busy():
+                pygame.mixer.Channel(2).play(tecla3_1,-1,20000)
+            #hilo = threading.Thread(target=tecla3_inici)
+            #hilo.start()
         elif mes == "0":
             print("ENTRA 3 en mes=0")
-            pygame.mixer.Channel(2).fadeout(300)
+            pygame.mixer.Channel(2).fadeout(200)
     elif topic == "sala2/tecla4":
         print("ENTRA en tecla4")
         if mes == "1":
             print("ENTRA 4 en mes=1")
-            hilo = threading.Thread(target=tecla4_inici)
-            hilo.start()
+            if not pygame.mixer.Channel(3).get_busy():
+                pygame.mixer.Channel(3).play(tecla4_1,-1,20000)
+            #hilo = threading.Thread(target=tecla4_inici)
+            #hilo.start()
         elif mes == "0":
             print("ENTRA 4 en mes=0")
-            pygame.mixer.Channel(3).fadeout(300)
+            pygame.mixer.Channel(3).fadeout(200)
+    elif topic == "sala2/tecla5":
+        print("ENTRA en tecla5")
+        if mes == "1":
+            print("ENTRA 5 en mes=1")
+            if not pygame.mixer.Channel(4).get_busy():
+                pygame.mixer.Channel(4).play(tecla5_1,-1,20000)
+            #hilo = threading.Thread(target=tecla1_inici)
+            #hilo.start()
+        elif mes == "0":
+            print("ENTRA 5 en mes=0")
+            #fadeout() 
+            # stop playback after fading channel out 
+            # fadeout(time) -> None
+            pygame.mixer.Channel(4).fadeout(200)
+    elif topic == "sala2/tecla6":
+        print("ENTRA en tecla6")
+        if mes == "1":
+            print("ENTRA 6 en mes=1")
+            if not pygame.mixer.Channel(5).get_busy():
+                pygame.mixer.Channel(5).play(tecla6_1,-1,20000)
+            #hilo = threading.Thread(target=tecla2_inici)
+            #hilo.start()
+        elif mes == "0":
+            print("ENTRA 6 en mes=0")
+            pygame.mixer.Channel(5).fadeout(200)
+    elif topic == "sala2/tecla7":
+        print("ENTRA en tecla7")
+        if mes == "1":
+            print("ENTRA 7 en mes=1")
+            if not pygame.mixer.Channel(6).get_busy():
+                pygame.mixer.Channel(6).play(tecla7_1,-1,20000)
+            #hilo = threading.Thread(target=tecla3_inici)
+            #hilo.start()
+        elif mes == "0":
+            print("ENTRA 7 en mes=0")
+            pygame.mixer.Channel(6).fadeout(200)
+    elif topic == "sala2/tecla8":
+        print("ENTRA en tecla8")
+        if mes == "1":
+            print("ENTRA 8 en mes=1")
+            if not pygame.mixer.Channel(7).get_busy():
+                pygame.mixer.Channel(7).play(tecla8_1,-1,20000)
+            #hilo = threading.Thread(target=tecla4_inici)
+            #hilo.start()
+        elif mes == "0":
+            print("ENTRA 8 en mes=0")
+            pygame.mixer.Channel(7).fadeout(200)
     
 def on_connect(client,userdata,flags,rc):
   
     client.subscribe("sala2/dificultad",1)    
 
-    for i in range(0,5):
+    for i in range(0,8):
         client.subscribe("sala2/tecla"+str(i),1)
 
-    print("Suscrito a los temas tecla de 1 a 5")
+    print("Suscrito a los temas tecla de 1 a 8")
 
 broker_address="127.0.0.1" #ip del servidor
 #broker_address="192.168.68.1" #ip del servidor
