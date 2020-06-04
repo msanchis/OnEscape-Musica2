@@ -165,17 +165,18 @@ def on_connect(client,userdata,flags,rc):
   
     client.subscribe("sala2/dificultad",1)    
 
-    for i in range(0,20):
-        client.subscribe("sala2/tecla"+str(i),1)
+    client.subscribe("sala2/tecla1",1)
+#    for i in range(0,20):
+#        client.subscribe("sala2/tecla"+str(i),1)
 
-    print("Suscrito a los temas tecla de 1 a 20")
+    print("Suscrito a los temas dificultad y tecla1")
 
 broker_address="127.0.0.1" #ip del servidor
 #broker_address="192.168.68.1" #ip del servidor
 #broker_address="192.168.1.3"
 
 print("Creando una estancia")
-client = mqtt.Client("ReproductorAudio2") #creant una estancia
+client = mqtt.Client("ProvaTecla1") #creant una estancia
 client.on_message=on_message #cridant a on_message
 client.on_connect=on_connect #cridant a on_connect
 print("Conectando con el servidor")

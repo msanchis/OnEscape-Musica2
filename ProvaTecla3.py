@@ -19,7 +19,7 @@ def tecla2_inici():
     pygame.mixer.Sound.play(tecla2_1)
     while(tecla2):
         pygame.mixer.Sound.play(tecla2_2)
-    pygame.mixer.Sound.play(tecla2_3) 
+    #pygame.mixer.Sound.play(tecla2_3) 
 
 def on_message(client, userdata, message):    
     topic = str(message.topic)
@@ -33,6 +33,7 @@ def on_message(client, userdata, message):
             hilo.start()
         elif mes == "0":
             print("ENTRA 3 en mes=0")
+            pygame.mixer.Sound.fadeout()
             global tecla2
             tecla2=False
         
