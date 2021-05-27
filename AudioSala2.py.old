@@ -13,31 +13,34 @@ def mosquito():
     subprocess.call(mosquitto_path,shell=True)
 
 fil = threading.Thread(target=mosquito)
-fil.start()
+#fil.start()
 
-global client
-
-global t # Thread musica
+client = None
 
 pygame.mixer.init()	
 pygame.mixer.pre_init(frequency=44100, size=-16, channels=20, buffer=4096)
 
 #Comprovar que així funciona
-pygame.mixer.set_num_channels(20)
+#pygame.mixer.set_num_channels(20)
 
-path = "/home/pi/"
-pathTecla = "/home/pi/audio2/"
-#path = "C:\\Users\\Micky\\Documents\\Escape Room\\Sala2\\audioServidor\\"
-#pathTecla = "C:\\Users\\Micky\\Documents\\Escape Room\\Sala2\\audioServidor\\audio2\\"
+#path = "/home/pi/"
+#pathTecla = "/home/pi/audio2/"
+path = "C:\\Users\\Micky\\Documents\\Escape Room\\Sala2\\audioServidor\\"
+pathTecla = "C:\\Users\\Micky\\Documents\\Escape Room\\Sala2\\audioServidor\\audio2\\"
 
 DIFICULTAD=0 #variable dificultat, per defecte facil 0, 1 dificil
 
 #SONS 20 TECLES ORGAN
 tecla1_1 = pygame.mixer.Sound(pathTecla+'G2.ogg')
+tecla1_1.set_volume(1.0)
 tecla2_1 = pygame.mixer.Sound(pathTecla+'F#2.ogg')
+tecla2_1.set_volume(1.0)
 tecla3_1 = pygame.mixer.Sound(pathTecla+'F2.ogg')
+tecla3_1.set_volume(1.0)
 tecla4_1 = pygame.mixer.Sound(pathTecla+'E2.ogg')
+tecla4_1.set_volume(1.0)
 tecla5_1 = pygame.mixer.Sound(pathTecla+'D#2.ogg')
+tecla5_1.set_volume(1.0)
 tecla6_1 = pygame.mixer.Sound(pathTecla+'D2.ogg')
 tecla7_1 = pygame.mixer.Sound(pathTecla+'C#2.ogg')
 tecla8_1 = pygame.mixer.Sound(pathTecla+'C2.ogg')
@@ -60,18 +63,18 @@ holo2 = pygame.mixer.Sound(path+'holograma2.ogg')
 
 trona = pygame.mixer.Sound(path+'trona.wav')
 llamp = pygame.mixer.Sound(path+'llamp.wav')
+plutja = pygame.mixer.Sound(path+'plutja.wav')
 
-efect1 = pygame.mixer.Sound(path+'efecte1.ogg')
-efect2 = pygame.mixer.Sound(path+'efecte2.ogg')
+bucle1 = pygame.mixer.Sound(path+'bucle1.ogg')
+bucle2 = pygame.mixer.Sound(path+'bucle2.ogg')
 
-fiorgan = pygame.mixer.Sound(path+'finalorgan.ogg')
 
 
 def tormenta1():    
     pygame.mixer.Sound.play(trona)
 
 def relampago1():    
-    time.sleep(0.6)
+    time.sleep(1)
     pygame.mixer.Sound.play(llamp)
 
 def tormenta():
@@ -80,52 +83,30 @@ def tormenta():
 
 def relampago():
     client.publish("sala2/llamp","1")
-    time.sleep(0.6)
+    time.sleep(1)
     pygame.mixer.Sound.play(llamp)
 
-def efecte1():
-    pygame.mixer.Sound.play(efect1)
-
-def efecte2():
-    pygame.mixer.Sound.play(efect2)
-
-def finalOrgan():
-    pygame.mixer.Sound.play(fiorgan)
-
-def intriga():
-    pygame.mixer.music.fadeout(5000)
-    time.sleep(3)
-    pygame.mixer.music.load(path+'intriga2.ogg')
-    pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(0.3)
-
 def comensa():    
+    pygame.mixer.music.set_volume(0.5) #comesar amb 0.5 de volumen
     pygame.mixer.music.load(path+'plutja.wav') #obrir el archiu 15 MINUTS 900 secs        
-    pygame.mixer.music.play(-1)    
-    pygame.mixer.music.set_volume(0.2)
-
-def para():
-    pygame.mixer.music.fadeout(3000)
+    pygame.mixer.music.play()    
 
 def cambioMusica():
-    pygame.mixer.music.fadeout(5000)    
-    pygame.mixer.music.load(path+'epicNando.ogg') #reproduim 10 MINUTS
-    pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(0.3)    
-    #pygame.mixer.music.queue(path+'bucle2.ogg') #posem en cua 2 MINUTS               
+    pygame.mixer.music.fadeout(3000)    
+    pygame.mixer.music.load(path+'ambient1.ogg') #reproduim 10 MINUTS
+    pygame.mixer.music.play()
+    pygame.mixer.music.queue(path+'bucle2.ogg') #posem en cua 2 MINUTS               
 
 def cambioMusica2():    
-   # pygame.mixer.music.fadeout(5000) 
-    pygame.mixer.music.load(path+'epicLlarga.ogg')    
-    pygame.mixer.music.play() #
-    pygame.mixer.music.set_volumne(0.3)
-   # pygame.mixer.music.queue(path+'bucle1.ogg') #posem en cua 2 MINUTS               
+    pygame.mixer.music.fadeout(3000)    
+    pygame.mixer.music.load(path+'bucle2.ogg')    
+    pygame.mixer.music.play(8) #repetim 9 vegades 10 MINUTS
+    pygame.mixer.music.queue(path+'bucle1.ogg') #posem en cua 2 MINUTS               
 
 def cambioMusica3():
-    pygame.mixer.music.fadeout(5000)    
+    pygame.mixer.music.fadeout(3000)    
     pygame.mixer.music.load(path+'bucle1.ogg')    
-    pygame.mixer.music.play(9) #repetim 9 vegades 10 MINUTS
-    pygame.mixer.music.set_volume(0.2)
+    pygame.mixer.music.play(8) #repetim 9 vegades 10 MINUTS
 
 def holograma():
     pygame.mixer.Sound.play(holo)
@@ -142,52 +123,13 @@ def buc1():
 def buc2():
     pygame.mixer.Sound.play(bucle2)
 
-def acords():
-    if not pygame.mixer.Channel(0).get_busy():
-        #pygame.mixer.Channel(0).set_volume(1.0)
-        pygame.mixer.Channel(0).play(tecla1_1,-1,20000)
-    if not pygame.mixer.Channel(4).get_busy():
-        #pygame.mixer.Channel(0).set_volume(1.0)
-        pygame.mixer.Channel(4).play(tecla5_1,-1,20000)
-    if not pygame.mixer.Channel(8).get_busy():
-        #pygame.mixer.Channel(0).set_volume(1.0)
-        pygame.mixer.Channel(8).play(tecla9_1,-1,20000)
-
-    time.sleep(2.5)
-    pygame.mixer.Channel(0).fadeout(400)
-    #pygame.mixer.Channel(0).stop()
-    pygame.mixer.Channel(4).fadeout(400)
-    #pygame.mixer.Channel(4).stop()
-    pygame.mixer.Channel(8).fadeout(400)
-    #pygame.mixer.Channel(8).stop()
- 
-    time.sleep(1)
-
-    if not pygame.mixer.Channel(11).get_busy():
-        #pygame.mixer.Channel(0).set_volume(1.0)
-        pygame.mixer.Channel(11).play(tecla12_1,-1,20000)
-    if not pygame.mixer.Channel(12).get_busy():
-        #pygame.mixer.Channel(0).set_volume(1.0)
-        pygame.mixer.Channel(12).play(tecla13_1,-1,20000)
-    if not pygame.mixer.Channel(16).get_busy():
-        #pygame.mixer.Channel(0).set_volume(1.0)
-        pygame.mixer.Channel(16).play(tecla17_1,-1,20000)
-    if not pygame.mixer.Channel(19).get_busy():
-        #pygame.mixer.Channel(0).set_volume(1.0)
-        pygame.mixer.Channel(19).play(tecla20_1,-1,20000)
- 
-    time.sleep(2.5)
-    pygame.mixer.Channel(11).fadeout(400)
-    pygame.mixer.Channel(12).fadeout(400)
-    pygame.mixer.Channel(16).fadeout(400)
-    pygame.mixer.Channel(19).fadeout(400)    
-  
         
 def on_message(client, userdata, message):    
 
     global DIFICULTAD
     topic = str(message.topic)
     mes = str(message.payload.decode("utf-8"))
+    print(topic+ " " + mes)
     if topic == "sala2/dificultad":
         if mes == "1":
             DIFICULTAD="1" #dificil
@@ -203,13 +145,7 @@ def on_message(client, userdata, message):
         t = threading.Timer(90,tormenta)
         t.start()
         
-        t = threading.Timer(100,tormenta)
-        t.start()
-
         t = threading.Timer(120,relampago)
-        t.start()
-
-        t = threading.Timer(130,tormenta)
         t.start()
 
         t = threading.Timer(300,tormenta)
@@ -224,51 +160,18 @@ def on_message(client, userdata, message):
         t= threading.Timer(1200,tormenta)
         t.start()
 
-        t= threading.Timer(1800,tormenta)
+        t= threading.Timer(800, cambioMusica)
         t.start()
 
-        t= threading.Timer(2500,tormenta)
+        t= threading.Timer(2000, cambioMusica2)
         t.start()
 
-        #t= threading.Timer(800, cambioMusica)
-        #t.start()
-
-        #t= threading.Timer(1400, cambioMusica2)
-        #t.start()
-
-        #t= threading.Timer(1600, cambioMusica3)
-        #t.start()        
+        t= threading.Timer(2500, cambioMusica3)
+        t.start()        
 
 
     elif topic == "sala2/inici":
         hilo = threading.Thread(target=comensa)
-        hilo.start()
-
-    elif topic == "sala2/tancaPortaCaraVeritat":
-        hilo = threading.Thread(target=intriga)
-        hilo.start()
-        
-    elif topic in ["sala2/activaPuzzle1","sala2/estat1Pedestal"]:        
-
-        hilo = threading.Thread(target=efecte1)
-        hilo.start()
-        time.sleep(6)
-        t = threading.Thread(target=cambioMusica)
-        t.start()
-    
-    elif topic in ["sala2/reliquia1","sala2/reliquia2","sala2/reliquia3","sala2/reliquia4","sala2/reliquia5","sala2/reliquia6"]:
-        hilo = threading.Thread(target=efecte2)
-        hilo.start()
-
-    elif topic == "sala2/acordCorrecte":
-        hilo = threading.Thread(target=finalOrgan)
-        hilo.start()
-        time.sleep(8)
-        hilo = threading.Thread(target=cambioMusica2)
-        hilo.start()
-
-    elif topic == "sala2/iniciaPunxos":
-        hilo = threading.Thread(target=para)
         hilo.start()
 
     elif topic == "sala2/holograma":
@@ -299,38 +202,38 @@ def on_message(client, userdata, message):
         hilo = threading.Thread(target=buc2)
         hilo.start()
 
-    elif topic == "sala2/activaOrgan":
-        hilo = threading.Thread(target=acords)
-        hilo.start()
-
     elif topic == "sala2/tecla1":
         if mes == "0":
             if not pygame.mixer.Channel(0).get_busy():
-                #pygame.mixer.Channel(0).set_volume(1.0)
+                pygame.mixer.Channel(0).set_volume(1.0)
                 pygame.mixer.Channel(0).play(tecla1_1,-1,20000)
         elif mes == "1":
             pygame.mixer.Channel(0).fadeout(400)
     elif topic == "sala2/tecla2":
         if mes == "0":
             if not pygame.mixer.Channel(1).get_busy():
+                pygame.mixer.Channel(1).set_volume(1.0)
                 pygame.mixer.Channel(1).play(tecla2_1,-1,20000)
         elif mes == "1":
             pygame.mixer.Channel(1).fadeout(400)
     elif topic == "sala2/tecla3":
         if mes == "0":
             if not pygame.mixer.Channel(2).get_busy():
+                pygame.mixer.Channel(2).set_volume(1.0)
                 pygame.mixer.Channel(2).play(tecla3_1,-1,20000)
         elif mes == "1":
             pygame.mixer.Channel(2).fadeout(400)
     elif topic == "sala2/tecla4":
         if mes == "0":
             if not pygame.mixer.Channel(3).get_busy():
+                pygame.mixer.Channel(3).set_volume(1.0)
                 pygame.mixer.Channel(3).play(tecla4_1,-1,20000)
         elif mes == "1":
             pygame.mixer.Channel(3).fadeout(400)
     elif topic == "sala2/tecla5":
         if mes == "0":
             if not pygame.mixer.Channel(4).get_busy():
+                pygame.mixer.Channel(4).set_volume(1.0)
                 pygame.mixer.Channel(4).play(tecla5_1,-1,20000)
         elif mes == "1":
             pygame.mixer.Channel(4).fadeout(400)
@@ -443,40 +346,23 @@ def on_connect(client,userdata,flags,rc):
     client.subscribe("sala2/trona",1)
     client.subscribe("sala2/llamp",1)
     client.subscribe("sala2/cova",1)
-    
-    client.subscribe("sala2/activaPuzzle1",1)
-    client.subscribe("sala2/estat1Pedestal",1)
-
-    client.subscribe("sala2/tancaPortaCaraVeritat",1)
-
-    client.subscribe("sala2/reliquia1",1)
-    client.subscribe("sala2/reliquia2",1)
-    client.subscribe("sala2/reliquia3",1)
-    client.subscribe("sala2/reliquia4",1)
-    client.subscribe("sala2/reliquia5",1)
-    client.subscribe("sala2/reliquia6",1)
-
-    client.subscribe("sala2/acordCorrecte",1)
-
-    client.subscribe("sala2/detectaCor",1)
-
-    client.subscribe("sala2/iniciaPunxos",1)
 
     client.subscribe("sala2/bucle1",1)
     client.subscribe("sala2/bucle2",1)
 
     client.subscribe("sala2/paraMusica")
 
-    client.subscribe("sala2/activaOrgan")
-
 time.sleep(5)
 #broker_address="192.168.68.55" #ip del servidor
 #broker_address="192.168.1.2"
 broker_address="127.0.0.1"
+print("Creando una estancia")
 
 client = mqtt.Client("AudioSala2") #creant una estancia
 client.on_message=on_message #cridant a on_message
 client.on_connect=on_connect #cridant a on_connect
+
+print("Conectando con el servidor")
 
 client.connect(broker_address) #conectant-se al servidor 
 client.loop_forever()
