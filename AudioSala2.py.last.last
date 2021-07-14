@@ -55,22 +55,18 @@ tecla19_1 = pygame.mixer.Sound(pathTecla+'C#1.ogg')
 tecla20_1 = pygame.mixer.Sound(pathTecla+'C1.ogg')
 
 holo = pygame.mixer.Sound(path+'holograma.wav')
+holo1 = pygame.mixer.Sound(path+'holograma1.ogg')
+holo2 = pygame.mixer.Sound(path+'holograma2.ogg')
 
 trona = pygame.mixer.Sound(path+'trona.wav')
 llamp = pygame.mixer.Sound(path+'llamp.wav')
 
-inicio_pedestal_S = pygame.mixer.Sound(path+'05_FX_INICIO_PEDESTAL.ogg')
-reliquia_colocada_S = pygame.mixer.Sound(path+'05_FX_RELIQUIA_COLOCADA.ogg')
-encuentran_corazon_s = pygame.mixer.Sound(path+'05_FX_ENCUENTRAN_CORAZON.ogg')
+efect1 = pygame.mixer.Sound(path+'efecte1.ogg')
+efect2 = pygame.mixer.Sound(path+'efecte2.ogg')
+efect3 = pygame.mixer.Sound(path+'efecte3.ogg')
 
-calavera_inicial_S = pygame.mixer.Sound(path+'08_FX_CALAVERA_INICIAL.ogg')
-calavera_bajando1_S = pygame.mixer.Sound(path+'08_FX_CALAVERA_BAJANDO_1.ogg')
-calavera_bajando2_S = pygame.mixer.Sound(path+'08_FX_CALAVERA_BAJANDO_2.ogg')
-calavera_lento1_S = pygame.mixer.Sound(path+'08_FX_CALAVERA_LENTO_1.ogg')
-calavera_lento2_S = pygame.mixer.Sound(path+'08_FX_CALAVERA_LENTO_2.ogg')
-calavera_conseguido_S = pygame.mixer.Sound(path+'08_FX_CALAVERA_CONSEGUIDO.ogg')
-calavera_llave_S = pygame.mixer.Sound(path+'08_FX_CALAVERA_LLAVE_AIRE.ogg')
-calavera_prisa_S = pygame.mixer.Sound(path+'08_FX_CALAVERA_PRISA.ogg')
+fiorgan = pygame.mixer.Sound(path+'finalorgan.ogg')
+
 
 def tormenta1():    
     pygame.mixer.Sound.play(trona)
@@ -88,89 +84,61 @@ def relampago():
     time.sleep(0.6)
     pygame.mixer.Sound.play(llamp)
 
-def inicio_pedestal():
-    pygame.mixer.music.set_volume(0.1)
-    pygame.mixer.Sound.play(inicio_pedestal_S) # inicio Pedestal
-    time.sleep(9)
-    pygame.mixer.music.set_volume(0.2)
+def efecte1():
+    pygame.mixer.Sound.play(efect1) # final Pedestal
 
-def reliquia_colocada():
-    pygame.mixer.music.set_volume(0.1)
-    pygame.mixer.Sound.play(reliquia_colocada_S) # reliquias de la 1 a la 5
-    time.sleep(3)
-    pygame.mixer.music.set_volume(0.2)
+def efecte2():
+    pygame.mixer.Sound.play(efect2) # puzzle
 
-def encuentran_corazon():
-    pygame.mixer.music.fadeout(1000)
-    pygame.mixer.Sound.play(encuentran_corazon_S) # reliquia 6
-    pygame.mixer.music.load(path+'11_MUSICA_ENCUENTRAN_CORAZON.ogg')
-    pygame.mixer.music.play(-1)
-    pygame.mixer.music_set_volume(0.2)
+def efecte3():
+    pygame.mixer.Sound.play(efect3) # reliquia
 
 def derrumbe():
-    pygame.mixer.music.fadeout(5000)
-    pygame.mixer.music.load(path+'12_MUSICA_DERRUMBE.ogg')
-    pygame.mixer.music.play()
+    pygame.mixer.music.fadeout(2000)
+    pygame.mixer.music.load(path+'derrumbe.ogg')
+    pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.3)
 
-def musica_triunfo_final():
+def finalOrgan():
+    pygame.mixer.Sound.play(fiorgan)
+
+def intriga():
     pygame.mixer.music.fadeout(5000)
-    pygame.mixer.music.load(path+'13_MUSICA_TRIUNFO_FINAL.ogg')
-    pygame.mixer.music.play()
-    pygame.mixer.music.set_volume(0.2)
-
-
-def calavera_inicial():
-    pygame.mixer.music.set_volume(0.1)
-    pygame.mixer.Sound.play(calavera_inicial_S)
-    time.sleep(6)
-    pygame.mixer.music.set_volume(0.2)
-
-def calavera_conseguido():
-    pygame.mixer.music.fadeout(2000)
-    pygame.mixer.Sound.play(calavera_conseguido_S)
-    time.sleep(6)
-    pygame.mixer.music.load(path+'10_MUSICA_DESPUES_PINCHOS.ogg')
+    time.sleep(3)
+    pygame.mixer.music.load(path+'intriga2.ogg')
     pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(0.2)
-
-def musica_pasadizo():
-    pygame.mixer.music.fadeout(5000)
-    pygame.mixer.music.load(path+'06_MUSICA_PASADIZO_BUCLE.ogg')
-    pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(0.2)
+    pygame.mixer.music.set_volume(0.3)
 
 def comensa():    
     pygame.mixer.music.load(path+'plutja.wav') #obrir el archiu 15 MINUTS 900 secs        
     pygame.mixer.music.play(-1)    
-    pygame.mixer.music.set_volume(0.3)
+    pygame.mixer.music.set_volume(0.2)
 
 def para():
     pygame.mixer.music.fadeout(3000)
 
-def musica_inicial():
-    pygame.mixer.music.load(path+'04_MUSICA_INICIAL_BUCLE.ogg') 
-    pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(0.2)    
-
-def musica_pinchos():
+def cambioMusica():
     pygame.mixer.music.fadeout(5000)    
-    pygame.mixer.music.load(path+'07_MUSICA_BAJANDO_PINCHOS.ogg') #reproduim 10 
+    pygame.mixer.music.load(path+'epicNando.ogg') #reproduim 10 MINUTS
     pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(0.2)
+    pygame.mixer.music.set_volume(0.3)    
+    #pygame.mixer.music.queue(path+'bucle2.ogg') #posem en cua 2 MINUTS               
 
-
-def despues_pinchos():    
+def cambioMusica2():    
     pygame.mixer.music.fadeout(5000) 
-    pygame.mixer.music.load(path+'10_MUSICA_DESPUES_PINCHOS_BUCLE.ogg')    
+    pygame.mixer.music.load(path+'epicLlarga.ogg')    
     pygame.mixer.music.play() #
     pygame.mixer.music.set_volumne(0.2)
+   # pygame.mixer.music.queue(path+'bucle1.ogg') #posem en cua 2 MINUTS               
+
+def cambioMusica3():
+    pygame.mixer.music.fadeout(5000)    
+    pygame.mixer.music.load(path+'bucle1.ogg')    
+    pygame.mixer.music.play(9) #repetim 9 vegades 10 MINUTS
+    pygame.mixer.music.set_volume(0.2)
 
 def holograma():
-    pygame.mixer.music.fadeout(5000)
     pygame.mixer.Sound.play(holo)
-    h = threading.Timer(10, musica_inicial)
-    h.start()
 
 def holograma1():
     pygame.mixer.Sound.play(holo1)
@@ -178,18 +146,53 @@ def holograma1():
 def holograma2():
     pygame.mixer.Sound.play(holo2)
 
-def acords():
-    pygame.mixer.music.set_volume(0.1)
-    pygame.mixer.Sound.play(organo1)
-    time.sleep(10)
-    pygame.mixer.music.set_volume(0.2)
-        
-def triunfo_final():
-    pygame.mixer.music.fadeout(3000)
-    pygame.mixer.music.load(path+'13_MUSICA_TRIUNFO_FINAL.ogg')
-    pygame.mixer.music.play()
-    pygame.mixer.music.set_volume(0.2)
+def buc1():  
+    pygame.mixer.Sound.play(bucle1)
 
+def buc2():
+    pygame.mixer.Sound.play(bucle2)
+
+def acords():
+    if not pygame.mixer.Channel(0).get_busy():
+        #pygame.mixer.Channel(0).set_volume(1.0)
+        pygame.mixer.Channel(0).play(tecla1_1,-1,20000)
+    if not pygame.mixer.Channel(4).get_busy():
+        #pygame.mixer.Channel(0).set_volume(1.0)
+        pygame.mixer.Channel(4).play(tecla5_1,-1,20000)
+    if not pygame.mixer.Channel(8).get_busy():
+        #pygame.mixer.Channel(0).set_volume(1.0)
+        pygame.mixer.Channel(8).play(tecla9_1,-1,20000)
+
+    time.sleep(2.5)
+    pygame.mixer.Channel(0).fadeout(400)
+    #pygame.mixer.Channel(0).stop()
+    pygame.mixer.Channel(4).fadeout(400)
+    #pygame.mixer.Channel(4).stop()
+    pygame.mixer.Channel(8).fadeout(400)
+    #pygame.mixer.Channel(8).stop()
+ 
+    time.sleep(1)
+
+    if not pygame.mixer.Channel(11).get_busy():
+        #pygame.mixer.Channel(0).set_volume(1.0)
+        pygame.mixer.Channel(11).play(tecla12_1,-1,20000)
+    if not pygame.mixer.Channel(12).get_busy():
+        #pygame.mixer.Channel(0).set_volume(1.0)
+        pygame.mixer.Channel(12).play(tecla13_1,-1,20000)
+    if not pygame.mixer.Channel(16).get_busy():
+        #pygame.mixer.Channel(0).set_volume(1.0)
+        pygame.mixer.Channel(16).play(tecla17_1,-1,20000)
+    if not pygame.mixer.Channel(19).get_busy():
+        #pygame.mixer.Channel(0).set_volume(1.0)
+        pygame.mixer.Channel(19).play(tecla20_1,-1,20000)
+ 
+    time.sleep(2.5)
+    pygame.mixer.Channel(11).fadeout(400)
+    pygame.mixer.Channel(12).fadeout(400)
+    pygame.mixer.Channel(16).fadeout(400)
+    pygame.mixer.Channel(19).fadeout(400)    
+  
+        
 def on_message(client, userdata, message):    
 
     global DIFICULTAD
@@ -222,35 +225,65 @@ def on_message(client, userdata, message):
         t = threading.Timer(300,tormenta)
         t.start()
 
-    elif topic == "sala2/tancaPortaCaraVeritat":
-        hilo = threading.Thread(target=musica_pasadizo)
-        hilo.start()
+        t= threading.Timer(600,tormenta)
+        t.start()
         
-    elif topic == "sala2/iniciaPunxos":
-        hilo = threading.Thread(target=musica_pinchos)
+        t= threading.Timer(900,tormenta)
+        t.start()
+
+        t= threading.Timer(1200,tormenta)
+        t.start()
+
+        t= threading.Timer(1800,tormenta)
+        t.start()
+
+        t= threading.Timer(2500,tormenta)
+        t.start()
+
+        #t= threading.Timer(800, cambioMusica)
+        #t.start()
+
+        #t= threading.Timer(1400, cambioMusica2)
+        #t.start()
+
+        #t= threading.Timer(1600, cambioMusica3)
+        #t.start()        
+
+
+    elif topic == "sala2/inici":
+        hilo = threading.Thread(target=comensa)
         hilo.start()
 
-    elif topic in ["sala2/activaPuzzle1","sala2/estat1Pedestal"]:        
-        hilo = threading.Thread(target=inicio_pedestal)
+    elif topic == "sala2/tancaPortaCaraVeritat":
+        hilo = threading.Thread(target=intriga)
         hilo.start()
+        
+    elif topic in ["sala2/activaPuzzle1","sala2/estat1Pedestal"]:        
+
+        hilo = threading.Thread(target=efecte2)
+        hilo.start()
+        time.sleep(6)
+        t = threading.Thread(target=cambioMusica)
+        t.start()
     
     elif topic in ["sala2/reliquia1","sala2/reliquia2","sala2/reliquia3","sala2/reliquia4","sala2/reliquia5"]:
-        hilo = threading.Thread(target=reliquia_colocada)
+        hilo = threading.Thread(target=efecte3)
         hilo.start()
 
     elif topic in ["sala2/reliquia6"]:
-        hilo = threading.Thread(target=encuentran_corazon)
+        hilo = threading.Thread(target=efecte1)
         hilo.start()
 
     elif topic == "sala2/acordCorrecte":
-        hilo = threading.Thread(target=calavera_conseguido)
+        hilo = threading.Thread(target=finalOrgan)
         hilo.start()
         
-        h = threading.Timer(12, despues_pinchos)
+
+        h = threading.Timer(12, cambioMusica2)
         h.start()
 
     elif topic == "sala2/activaOrgan":
-        hilo = threading.Thread(target=calavera_inicial)
+        hilo = threading.Thread(target=para)
         hilo.start()
 
     elif topic == "sala2/detectaCor":
@@ -277,8 +310,12 @@ def on_message(client, userdata, message):
         hilo = threading.Thread(target=relampago1)
         hilo.start()
 
-    elif topic == "sala2/triunfoFinal":
-        hilo = threading.Thread(target=triunfo_final)
+    elif topic == "sala2/bucle1":
+        hilo = threading.Thread(target=buc1)
+        hilo.start()
+
+    elif topic == "sala2/bucle2":
+        hilo = threading.Thread(target=buc2)
         hilo.start()
 
     elif topic == "sala2/activaOrgan":
@@ -416,6 +453,7 @@ def on_connect(client,userdata,flags,rc):
         client.subscribe("sala2/tecla"+str(i),1)
 
     client.subscribe("sala2/comensa",1)
+    client.subscribe("sala2/inici",1)
 
     client.subscribe("sala2/holograma",1)
     client.subscribe("sala2/holograma1",1)
@@ -423,6 +461,7 @@ def on_connect(client,userdata,flags,rc):
 
     client.subscribe("sala2/trona",1)
     client.subscribe("sala2/llamp",1)
+    client.subscribe("sala2/cova",1)
     
     client.subscribe("sala2/activaPuzzle1",1)
     client.subscribe("sala2/estat1Pedestal",1)
@@ -443,8 +482,11 @@ def on_connect(client,userdata,flags,rc):
     client.subscribe("sala2/iniciaPunxos",1)
     client.subscribe("sala2/activaOrgan",1)
 
+    client.subscribe("sala2/bucle1",1)
+    client.subscribe("sala2/bucle2",1)
+
     client.subscribe("sala2/paraMusica",1)
-    client.subscribe("sala2/triunfoFinal",1)
+
 
 time.sleep(5)
 #broker_address="192.168.68.55" #ip del servidor
